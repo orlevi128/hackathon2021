@@ -1,20 +1,15 @@
-from keras.applications.vgg19 import VGG19
-from keras.preprocessing import image
-from keras.applications.vgg19 import preprocess_input
-from keras.models import Model
 import numpy as np
 import os
+from PIL import Image
+from embedder import Embedder
 
 
 def compute_distance(embedding_1, embedding_2):
     return np.linalg.norm(embedding_1 - embedding_2)
 
 
-color_cube_size = 8
-
-layer_name = 'block4_pool'
-base_model = VGG19(weights='imagenet')
-model = Model(inputs=base_model.input, outputs=base_model.get_layer(layer_name).output)
+def retreive_k_similar_images(image, ):
+    pass
 
 print('Input a path to an image:')
 input_image_path = str(input())
@@ -29,6 +24,8 @@ should_use_colors = False
 if should_use_style:
     print('Should I use color embeddings too? Input "yes" if so.')
     should_use_colors = str(input()) == 'yes'
+
+
 
 img = image.load_img(input_image_path, target_size=(224, 224))
 x = image.img_to_array(img)
@@ -64,3 +61,4 @@ distances = {file_name: compute_distance(input_embedding, data_embeddings[file_n
 recommended_file_names = sorted(data_file_names, key=lambda file_name: distances[file_name])[:k]
 for file_name in recommended_file_names:
     print(os.path.splitext(file_name)[0])
+    Image.open(os.path.join('images', os.path.splitext(file_name)[0])).show()
