@@ -1,27 +1,25 @@
-from keras.applications.vgg19 import VGG19
-from keras.preprocessing import image
-from keras.applications.vgg19 import preprocess_input
-from keras.models import Model
-import numpy as np
 import os
+import pathlib
 
-input_dir = './images'
-output_dir = './embeddings'
-layer_name = 'block4_pool'
+import numpy as np
 
-base_model = VGG19(weights='imagenet')
-model = Model(inputs=base_model.input, outputs=base_model.get_layer(layer_name).output)
+from config import IMAGES_DIR, EMBEDDINGS_DIR
+from embedder import Embedder
 
-for filename in os.listdir(input_dir):
-    try:
-        img = image.load_img(os.path.join(input_dir, filename), target_size=(224, 224))
-    except OSError as e:
-        print(f'ERROR: {e}')
-        continue
 
-    x = image.img_to_array(img)
-    x = np.expand_dims(x, axis=0)
-    x = preprocess_input(x)
-    y = model.predict(x)
+def main():
+    print('Starting')
 
-    np.save(os.path.join(output_dir, filename), y)
+    embeddings_dir = pathlib.Path(EMBEDDINGS_DIR)
+    if not embeddings_dir.exists():
+        embeddings_dir.mkdir()
+
+    for filename in os.listdir(IMAGES_DIR):
+        print(f'Embedding {filename}')
+        vec = Embedder.run(os.path.join(IMAGES_DIR, filename))
+
+        np.save(str(embeddings_dir.joinpath(filename)), vec)
+
+
+if __name__ == '__main__':
+    main()
