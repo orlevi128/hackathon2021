@@ -8,6 +8,7 @@ authors = ["Or Levi <or.levi@fiverr.com>"]
 python = "^3.7"
 matplotlib = "^3.4.2"
 keras = "^2.4.3"
+tensorflow = "^2.5.0"
 
 [tool.poetry.dev-dependencies]
 
