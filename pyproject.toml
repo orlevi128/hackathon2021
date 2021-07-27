@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "hack2021"
+version = "0.1.0"
+description = ""
+authors = ["Or Levi <or.levi@fiverr.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+matplotlib = "^3.4.2"
+keras = "^2.4.3"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
