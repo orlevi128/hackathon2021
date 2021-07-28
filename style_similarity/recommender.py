@@ -5,6 +5,11 @@ from config import K, EMBEDDINGS_DIR
 from embedder import Embedder
 
 
+def embedding(image_path):
+    null_features = np.load('null_features.npy', allow_pickle=True)
+    return np.delete(Embedder.embed(image_path), [null_features], 0)
+
+
 def compute_distance(v1, v2):
     return np.linalg.norm(v1 - v2)
 
@@ -18,11 +23,9 @@ def IOU(s1, s2):
 
 
 def match_recommendations(image_path, k):
-    input_embedding = Embedder.embed(image_path)
-    null_features = np.load('null_features.npy', allow_pickle=True)
-    input_embedding = np.delete(input_embedding, [null_features], 0)
-    data_file_names = [vec_name for vec_name in os.listdir('encoded_' +EMBEDDINGS_DIR)]
-    data_embeddings = {vec_name: np.load(os.path.join('encoded_' +EMBEDDINGS_DIR, vec_name), allow_pickle=True)
+    input_embedding = embedding(image_path)
+    data_file_names = [vec_name for vec_name in os.listdir('encoded_' + EMBEDDINGS_DIR)]
+    data_embeddings = {vec_name: np.load(os.path.join('encoded_' + EMBEDDINGS_DIR, vec_name), allow_pickle=True)
                        for vec_name in data_file_names}
     distances = {vec_name: compute_distance(input_embedding, data_embeddings[vec_name])
                  for vec_name in data_file_names}

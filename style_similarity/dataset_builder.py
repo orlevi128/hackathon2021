@@ -3,6 +3,8 @@ import pathlib
 import numpy as np
 from config import IMAGES_DIR, EMBEDDINGS_DIR
 from embedder import Embedder
+from style_similarity import features_eliminator
+
 
 naive_embeddings_dir = pathlib.Path('naive_' + EMBEDDINGS_DIR)
 style_embeddings_dir = pathlib.Path('style_' + EMBEDDINGS_DIR)
@@ -38,3 +40,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    features_eliminator.eliminate_features()
