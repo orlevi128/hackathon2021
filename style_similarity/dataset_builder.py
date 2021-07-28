@@ -7,14 +7,17 @@ from embedder import Embedder
 naive_embeddings_dir = pathlib.Path('naive_' + EMBEDDINGS_DIR)
 style_embeddings_dir = pathlib.Path('style_' + EMBEDDINGS_DIR)
 color_embeddings_dir = pathlib.Path('color_' + EMBEDDINGS_DIR)
+coded_embeddings_dir = pathlib.Path('coded_' + EMBEDDINGS_DIR)
 embeddings_dir = pathlib.Path(EMBEDDINGS_DIR)
 if (not naive_embeddings_dir.exists() or
     not style_embeddings_dir.exists() or
     not color_embeddings_dir.exists() or
+    not coded_embeddings_dir.exists() or
     not embeddings_dir.exists()):
     naive_embeddings_dir.mkdir()
     style_embeddings_dir.mkdir()
     color_embeddings_dir.mkdir()
+    coded_embeddings_dir.mkdir()
     embeddings_dir.mkdir()
 
 
