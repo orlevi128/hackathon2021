@@ -37,7 +37,7 @@ def match_recommendations(image_path, k):
         print(os.path.splitext(file_name)[0])
         Image.open(os.path.join('images', os.path.splitext(file_name)[0])).show()
 
-    print('IOU {}'.format(IOU(set(d_recommended_file_names), set(d_recommended_file_names))))
+    print('IOU {}'.format(IOU(set(d_recommended_file_names), set(s_recommended_file_names))))
 
 
 def main():
@@ -53,8 +53,8 @@ def main():
     # for file_name in recommended_file_names:
     #     print(os.path.splitext(file_name)[0])
     #     Image.open(os.path.join('images', os.path.splitext(file_name)[0])).show()
-    image_path = 'img1.png'
-    match_recommendations(image_path)
+    image_path = os.path.join('uploads', 'img1.png')
+    match_recommendations(image_path, 5)
 
 
 if __name__ == '__main__':

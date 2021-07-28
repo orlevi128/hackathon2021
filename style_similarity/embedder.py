@@ -11,7 +11,6 @@ from config import EMBEDDING_LAYER_NAME, INPUT_SIZE, COLOR_CUBE_SIZE
 class Embedder:
     base_model = VGG19(weights='imagenet')
     model = Model(inputs=base_model.input, outputs=base_model.get_layer(EMBEDDING_LAYER_NAME).output)
-    model.predict(np.zeros((1,) + INPUT_SIZE + (3,)))
 
     @classmethod
     def embed_naive(cls, image_path):
